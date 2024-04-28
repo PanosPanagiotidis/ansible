@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on A few words for the firing squad</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on A few words for the firing squad</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 25 Feb 2024 18:22:17 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A few (1) songs</title>
+      <link>http://localhost:1313/posts/a-few-songs/</link>
+      <pubDate>Sun, 25 Feb 2024 18:22:17 +0200</pubDate>
+      <guid>http://localhost:1313/posts/a-few-songs/</guid>
+      <description>Introduction This is a list of some songs on repeat:&#xA;Dance Yrself Clean Dance Yrself Clean Dance Yrself Clean Dance Yrself Clean Dance Yrself Clean </description>
+    </item>
+  </channel>
+</rss>

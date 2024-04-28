@@ -1,0 +1,91 @@
+---
+- name: Create user with sudo privileges
+  user:
+    name: "{{ created_user }}"
+    state: present
+    groups: sudo
+    append: true
+    create_home: true
+
+- name: Create nginx group
+  group:
+    name: "{{ nginx_group }}"
+    state: present
+
+- name: Create nginx user
+  user:
+    name: "{{ nginx_user }}"
+    groups: "{{ nginx_group }}"
+    append: true
+    state: present
+    create_home: true
+
+- name: Setup passworldless sudo for user
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    line: "{{ created_user }} ALL=(ALL) NOPASSWD:ALL"
+    validate: "visudo -cf %s"
+
+- name: Copy SSH public key for user ansible
+  ansible.posix.authorized_key:
+    user: "{{ created_user }}"
+    state: present
+    key: "{{ lookup('file', '/home/goldeneye/.ssh/id_rsa.pub') }}"
+
+- name: Disable password authentication for root
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^#?PermitRootLogin"
+    line: "PermitRootLogin prohibit-password"
+    state: present
+
+- name: Install packages
+  apt:
+    pkg:
+      - vim
+      - curl
+      - git
+      - ufw
+      - nginx
+    state: latest
+    update_cache: true
+
+- name: Start Nginx service
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Configure Nginx to run as non-root-user
+  lineinfile:
+    dest: /etc/nginx/nginx.conf
+    regexp: "^user"
+    line: "user {{ nginx_user }};"
+  notify:
+    - Restart nginx
+
+- name: Set permissions for config dir for user
+  file:
+    path: /etc/nginx
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+    recurse: yes
+
+- name: UFW - Allow SSH connections
+  community.general.ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: UFW - Enable and deny by default
+  community.general.ufw:
+    state: enabled
+    policy: deny
+
+- name: UFW - Enable port 80
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    port: "80"
+  notify:
+    - Reload UFW

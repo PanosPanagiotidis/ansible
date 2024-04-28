@@ -1,0 +1,12 @@
+#cloud-config
+ssh_pwauth: false
+
+users:
+  - name: ansible
+    gecos: Ansible User
+    groups: users,admin,wheel
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZuj50vIVZO4tk5RfTHmatZs1+k7X7NckIcbS4xqEkK0ELEy0qgARKoRN4oK/GOkZAiUvFx+r97qyKq41udyA9sqDbxFakzHpJj/6Vh2J+nNEN8KzNUej3+jNsfXWLgnd6cdeSsC8g4Y2g4lK8BWiQ9Q0fkH7KD+B0s/HwPmbwZU4SN5gLVaKbOYNjUjDtCnk5OcF+0DMJQUOHJf2qkm8OtSiTGXLxYq9mAUKppp30wntm3au5+IfndWTLhfnYo0AzOjS9XP0FK03sIlqj4ZLo69BmwfgBofHo1QqlrNuR+4VzEnoHSPa4/93694xRRCSkUeDn/5DqwYY045uOe8y0m+ckxA2RfSLzQJBfIs0jaf4k2Sn5h6I+Wf305cg7dPxIwxHfW48wmZrvVLgs6ES4bswlwfzjX/75GYF/kAdC9W3fQV/yxez6PrgJ/vrlXoH7kuFbr9VoilYKHBx1x1c/r0kdPVz6UMVoVzFulMqwynPJC9E6j1qDlokqZfFPrLU= panos.pan92@gmail.com"

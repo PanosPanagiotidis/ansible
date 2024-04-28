@@ -1,0 +1,4 @@
+theme = 'ananke'
+baseUrl = 'http://localhost'
+languageCode = 'en-us'
+title = 'A few words for the firing squad'

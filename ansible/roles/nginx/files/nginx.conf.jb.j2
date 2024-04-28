@@ -1,0 +1,13 @@
+upstream resume {
+    server {{ nest1_ip }}:{{ nest1_port }} weight=3;
+    server {{ nest2_ip }}:{{ nest2_port }};
+}
+
+server {
+    listen 80;
+    server_name localhost;
+    
+    location / {
+        proxy_pass http://resume;
+    }
+}

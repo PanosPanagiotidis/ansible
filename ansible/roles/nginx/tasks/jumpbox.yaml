@@ -1,0 +1,13 @@
+---
+- name: Copy Nginx load balancer configuration
+  become: true
+  template:
+    src: files/nginx.conf.jb.j2
+    dest: /etc/nginx/sites-available/default
+
+- name: Enable new configuration
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+  notify: Restart Nginx

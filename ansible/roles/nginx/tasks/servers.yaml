@@ -1,0 +1,30 @@
+---
+- name: Copy nginx configuration template
+  become: true
+  template:
+    src: files/nginx.conf.j2
+    dest: /etc/nginx/sites-available/default
+
+- name: Deploy Hugo website to Nginx server
+  become: true
+  copy: 
+    src: files/resume
+    dest: /var/www/html/
+    mode: preserve
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+
+- name: Copy host specific index
+  template:
+    src: files/index.html.j2
+    dest: /var/www/html/resume/public/index.html
+    mode: preserve
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+
+- name: Enable new site
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+  notify: Restart Nginx

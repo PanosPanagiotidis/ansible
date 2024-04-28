@@ -1,0 +1,8 @@
+---
+- name: server tasks
+  include_tasks: servers.yaml
+  when: servers is defined
+
+- name: jumpbox tasks
+  include_tasks: jumpbox.yaml
+  when: jumpbox is defined
