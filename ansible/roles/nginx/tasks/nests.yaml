@@ -1,12 +1,12 @@
 ---
 - name: Copy nginx configuration template
-  become: true
+  become: yes
   template:
     src: files/nginx.conf.j2
     dest: /etc/nginx/sites-available/default
 
 - name: Deploy Hugo website to Nginx server
-  become: true
+  become: yes
   copy: 
     src: files/resume
     dest: /var/www/html/
@@ -15,6 +15,7 @@
     group: "{{ nginx_group }}"
 
 - name: Copy host specific index
+  become: yes
   template:
     src: files/index.html.j2
     dest: /var/www/html/resume/public/index.html

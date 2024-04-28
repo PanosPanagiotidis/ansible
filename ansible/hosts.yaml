@@ -1,14 +1,10 @@
-vms:
+nests:
   hosts:
     nest01:
       ansible_host: 192.168.122.110
     nest02:
       ansible_host: 192.168.122.173
-  vars:
-    ansible_user: user
 jumpboxes:
   hosts:
     jumpbox:
       ansible_host: 192.168.122.128
-  vars:
-    ansible_user: user

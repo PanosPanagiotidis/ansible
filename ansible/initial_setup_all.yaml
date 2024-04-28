@@ -1,0 +1,23 @@
+---
+- name: Configure all machines from fresh install
+  hosts: all
+  become: yes
+  vars:
+    ansible_user: user
+    created_user: ansible
+    nginx_user: nginx
+    nginx_group: nginx
+    nest1_ip: 192.168.122.110
+    nest1_port: 80
+    nest2_ip: 192.168.122.173
+    nest2_port: 80
+
+  roles:
+    - initial-setup
+
+  post_tasks:
+    - debug:
+        msg: "Initial setup for machines complete"
+
+  handlers:
+    - include: handlers/main.yml

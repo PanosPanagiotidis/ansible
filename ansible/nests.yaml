@@ -1,23 +1,21 @@
 ---
-- name: Configure nests from fresh install
-  hosts: vms
-  become: yes
+- name: Configure nests for Nginx
+  hosts: nests
   vars:
-    created_user: ansible
+    ansible_user: ansible
     nginx_user: nginx
     nginx_group: nginx
     server_name: "{{ ansible_default_ipv4.address }}"
     document_root: /var/www
     app_root: html_demo_site-main
-    servers: yes
+    nests: yes
 
   roles:
-    - initial-setup
     - nginx
 
   post_tasks:
     - debug:
-        msg: "Initial setup for nests complete"
+        msg: "Nginx setup for nests complete"
 
   handlers:
     - include: handlers/main.yml
