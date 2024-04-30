@@ -1,9 +1,11 @@
 nests:
   hosts:
     nest01:
-      ansible_host: 192.168.122.110
+      ansible_host: 10.2.1.169
     nest02:
-      ansible_host: 192.168.122.173
+      ansible_host: 10.2.1.213
+  vars:
+    ansible_ssh_common_args='-o ProxyCommand="ssh -p 2222 -W %h:%p'
 jumpboxes:
   hosts:
     jumpbox:

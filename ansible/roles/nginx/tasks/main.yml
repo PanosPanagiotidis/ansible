@@ -1,4 +1,32 @@
 ---
+- name: Install Nginx
+  apt:
+    pkg:
+      - nginx
+    state: latest
+    update_cache: true
+
+- name: Start Nginx service
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Configure Nginx to run as non-root-user
+  lineinfile:
+    dest: /etc/nginx/nginx.conf
+    regexp: "^user"
+    line: "user {{ nginx_user }};"
+  notify:
+    - Restart nginx
+
+- name: Set permissions for config dir for user
+  file:
+    path: /etc/nginx
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+    recurse: yes
+
 - name: nests tasks
   include_tasks: nests.yaml
   when: nests is defined

@@ -14,7 +14,7 @@
 
   post_tasks:
     - debug:
-        msg: "Initial setup for jumpbox complete"
+        msg: "Nginx setup for jumpbox complete"
 
   handlers:
     - include: handlers/main.yml
